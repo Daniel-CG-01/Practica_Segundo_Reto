@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción a Promesas con jQuery</title>
+</head>
+<body> <!-- Acabar -->
+    <h1>Introducción a Promesas con jQuery</h1>
+
+    <button id="boton1a">Botón 1 Aceptar</button>
+    <button id="boton1b">Botón 1 Rechazar</button>
+    <button id="boton2">Botón 2</button>
+    <button id="boton3">Botón 3</button>
+
+    <!-- <button id="boton4">Reject</button> -->
+
+    <div id="output"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // let contador = 0;
+
+            $("#output").append("<p>No has pulsado todos los botones.</p>");
+
+            var b1 = $.Deferred();
+            var b2 = $.Deferred();
+            var b3 = $.Deferred();
+            
+            $("#boton1a").click(function() {
+                alert("Has pulsado el botón 1a Aceptar");
+                b1.resolve();
+
+                // Deshabilitar los botones 1a y 1b
+                $("#boton1a").prop("disable", true);
+                $("#boton1b").prop("disable", true);
+
+                // contador++;
+
+                // if (contador === 3) {
+                //     $("#output").empty().append("<p>Has pulsado todos los botones.</p>");
+                // }
+            });
+
+            $("#boton1b").click(function() {
+                alert("Has pulsado el botón 1b Rechazar")
+                b1.reject("Ha sido rechazado el botón 1");
+
+                // Deshabilitar los botones 1a y 1b
+                $("#boton1a").prop("disable", true);
+                $("#boton1b").prop("disable", true);
+            });
+            
+            $("#boton2").click(function() {
+                alert("Has pulsado el botón 2");
+                b2.resolve();
+
+                // contador++;
+
+                // if (contador === 3) {
+                //     $("#output").empty().append("<p>Has pulsado todos los botones.</p>");
+                // }
+            });
+            
+            $("#boton3").click(function() {
+                alert("Has pulsado el botón 3");
+                b3.resolve();
+
+                // contador++;
+
+                // if (contador === 3) {
+                //     $("#output").empty().append("<p>Has pulsado todos los botones.</p>");
+                // }
+            });
+
+            // $("#boton4").click(function() {
+            //     alert("Has pulsado el botón Reject.");
+            //     b1.reject("Rechazado 1 por el botón 4.");
+            // });
+
+            $.when(b1, b2, b3).done(function() {
+                $("#output").empty().append("<p>Has pulsado todos los botones.</p>");
+            });
+        });
+    </script>
+</body>
+</html>
